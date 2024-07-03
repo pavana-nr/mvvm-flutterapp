@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvvmexample/utils/routes/routes_name.dart';
 import 'package:mvvmexample/view/login_screen.dart';
+import 'package:mvvmexample/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 import 'utils/routes/routes.dart';
 
@@ -14,15 +16,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: RoutesName.login,
-      onGenerateRoute: Routes.generateRoute,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => AuthViewModel())],
+      child: MaterialApp(
+        initialRoute: RoutesName.login,
+        onGenerateRoute: Routes.generateRoute,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const LoginScreen(),
       ),
-      home: LoginScreen(),
     );
   }
 }

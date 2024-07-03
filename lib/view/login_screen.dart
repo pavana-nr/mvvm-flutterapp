@@ -1,11 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mvvmexample/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../res/components/round_button.dart';
 import '../utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -24,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
     final height = MediaQuery.of(context).size.height * 1;
     return SafeArea(
       child: Scaffold(
@@ -87,11 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       } else if (_passwordController.text.length < 6) {
                         Utils.toastMessage(
                             "Password length should be atleast 6 characters.");
-                      } else if (_emailController.text.isNotEmpty &&
-                          _passwordController.text.isNotEmpty) {
-                        if (kDebugMode) {
-                          print("API HIT");
-                        }
+                      } else {
+                        Map data = {
+                          'email': _emailController.text.toString(),
+                          'password': _passwordController.text.toString(),
+                        };
+                        authViewModel.loginApi(data, context);
                       }
                     })
               ],

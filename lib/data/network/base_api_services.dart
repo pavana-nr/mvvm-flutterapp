@@ -17,6 +17,8 @@ class BaseApiResponse {
     if (kDebugMode) {
       print(response.body);
     }
-    if (response.statusCode == 200) {}
+    if (response.statusCode == 200) {
+      return response.body;
+    }
   }
 }
