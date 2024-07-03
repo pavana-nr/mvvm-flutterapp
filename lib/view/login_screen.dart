@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: height * .1),
                 RoundButton(
                     title: "Login",
+                    loading: authViewModel.loading,
                     onPress: () {
                       if (_emailController.text.isEmpty) {
                         Utils.toastMessage("Please enter email");

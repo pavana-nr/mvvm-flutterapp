@@ -4,7 +4,7 @@ class RoundButton extends StatelessWidget {
   const RoundButton(
       {super.key,
       required this.title,
-      this.loading = false,
+      required this.loading,
       required this.onPress});
   final bool loading;
   final String title;
@@ -22,7 +22,9 @@ class RoundButton extends StatelessWidget {
             color: Colors.blue, borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: loading
-              ? const CircularProgressIndicator()
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                )
               : Text(
                   title,
                   style: const TextStyle(color: Colors.white),
