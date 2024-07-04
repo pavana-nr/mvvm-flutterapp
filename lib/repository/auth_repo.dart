@@ -12,17 +12,17 @@ class AuthRepository {
           await _apiServices.getPOSTApiResponse(AppUrls.loginUrl, data);
       return responseJson;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
-  Future<dynamic> registerApi(dynamic data) async {
+  Future<dynamic> signupApi(dynamic data) async {
     try {
       dynamic responseJson =
           await _apiServices.getPOSTApiResponse(AppUrls.registerUrl, data);
       return responseJson;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

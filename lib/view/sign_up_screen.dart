@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mvvmexample/utils/routes/routes_name.dart';
-import 'package:mvvmexample/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../res/components/round_button.dart';
+import '../utils/routes/routes_name.dart';
 import '../utils/utils.dart';
+import '../view_model/auth_view_model.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
   final TextEditingController _emailController = TextEditingController();
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Login Screen'),
+            title: const Text('Signup Screen'),
             centerTitle: true,
             automaticallyImplyLeading: false,
           ),
@@ -81,8 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     }),
                 SizedBox(height: height * .1),
                 RoundButton(
-                    title: "Login",
-                    loading: authViewModel.loading,
+                    title: "Sign Up",
+                    loading: authViewModel.setsignupLoading,
                     onPress: () {
                       if (_emailController.text.isEmpty) {
                         Utils.toastMessage("Please enter email");
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'email': _emailController.text.toString(),
                           'password': _passwordController.text.toString(),
                         };
-                        authViewModel.loginApi(data, context);
+                        authViewModel.signupApi(data, context);
                       }
                     }),
                 SizedBox(
@@ -104,21 +104,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, RoutesName.signup);
+                      Navigator.pushNamed(context, RoutesName.login);
                     },
-                    child: const Text("Don/'t have an account? Sign up")),
+                    child: const Text("Already have an account? Sign in")),
               ],
             ),
           )),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    super.dispose();
   }
 }
